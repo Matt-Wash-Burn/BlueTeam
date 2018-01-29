@@ -56,18 +56,15 @@ imshow(im2,[]);
 
 subplot(r,n,2);
 displayFFT(im1_fft); 
-% imshow(S1,[]);
-% O = ifft2(S); 
+
 title('FFT', 'FontSize', fontSize, 'Interpreter', 'None');
+
 subplot(r,n,6);
 displayFFT(im2_fft); 
-% imshow(S2,[]); 
 
 %% Croping The F Domain 
 
-
 mask = zeros(size(im1_fft));   %Same size as FFT1
-
 
 radius = 50; %radius of the circle 
 maskSize = size(mask); 
@@ -84,16 +81,17 @@ graymask2 = rgb2gray(RGBmask2);
 o1 = graymask1 .*fftshift(im1_fft) ; 
 o2 = ~graymask2 .* fftshift(im2_fft); 
 
-T = o1+o2 ; 
-T=ifftshift(T); 
+T = o1+o2 ;  %combine both highpass and lowpass of both images
+T=ifftshift(T); %After they are added move it back to the way Matlab understands it 
+
+%Display these masked images 
 subplot(r,n,3);
-% imshow(o1,[]);
-displayFFT(o1);
-% displayFFT(T); 
+displayFFT(ifftshift(o1));
+
 title('Masked Image', 'FontSize', fontSize, 'Interpreter', 'None');
 
 subplot(r,n,7); 
-displayFFT(o2); 
+displayFFT(ifftshift(o2)); 
 
 subplot(r,n,4); 
 displayFFT(T); 

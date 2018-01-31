@@ -178,11 +178,11 @@ title('dif23');
 
 %% Implement Sampling Lab3
 
-br1 = imresize(bird_gray,2,'nearest');
+br1 = imresize(fish_gray,4,'nearest');
 cbr1 = edge(br1, 'canny');
-br2 = imresize(bird_gray,2,'bilinear');
+br2 = imresize(fish_gray,4,'bilinear');
 cbr2 = edge(br2, 'canny');
-br3 = imresize(bird_gray,2,'bicubic');
+br3 = imresize(fish_gray,4,'bicubic');
 cbr3 = edge(br3, 'canny');
 
 figure; 

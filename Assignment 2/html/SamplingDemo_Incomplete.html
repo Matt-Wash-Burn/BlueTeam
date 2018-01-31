@@ -215,11 +215,11 @@ seg_I = imquantize(XX,thresh);
 RGB = label2rgb(seg_I);
 figure, imshow(RGB);colorbar;
 title(<span class="string">'dif23'</span>);
-</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_11.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_12.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_13.png" alt=""> <h2 id="9">Implement Sampling Lab3</h2><pre class="codeinput">br1 = imresize(bird_gray,2,<span class="string">'nearest'</span>);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_11.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_12.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_13.png" alt=""> <h2 id="9">Implement Sampling Lab3</h2><pre class="codeinput">br1 = imresize(fish_gray,4,<span class="string">'nearest'</span>);
 cbr1 = edge(br1, <span class="string">'canny'</span>);
-br2 = imresize(bird_gray,2,<span class="string">'bilinear'</span>);
+br2 = imresize(fish_gray,4,<span class="string">'bilinear'</span>);
 cbr2 = edge(br2, <span class="string">'canny'</span>);
-br3 = imresize(bird_gray,2,<span class="string">'bicubic'</span>);
+br3 = imresize(fish_gray,4,<span class="string">'bicubic'</span>);
 cbr3 = edge(br3, <span class="string">'canny'</span>);
 
 figure;
@@ -244,6 +244,12 @@ title(<span class="string">'diff13'</span>);
 figure;
 imshow(cbr2 -cbr3);
 title(<span class="string">'diff23'</span>);
+</pre><pre class="codeoutput">Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
 </pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_14.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_15.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_16.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_17.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_18.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_19.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 
@@ -426,11 +432,11 @@ title('dif23');
 
 %% Implement Sampling Lab3
 
-br1 = imresize(bird_gray,2,'nearest');
+br1 = imresize(fish_gray,4,'nearest');
 cbr1 = edge(br1, 'canny');
-br2 = imresize(bird_gray,2,'bilinear');
+br2 = imresize(fish_gray,4,'bilinear');
 cbr2 = edge(br2, 'canny');
-br3 = imresize(bird_gray,2,'bicubic');
+br3 = imresize(fish_gray,4,'bicubic');
 cbr3 = edge(br3, 'canny');
 
 figure; 

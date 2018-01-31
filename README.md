@@ -1,7 +1,4 @@
 # BlueTeamTest
+This repo is for CMPEN 497 Section 2: Internet of Things (IoT). 
 
-Matt Washburn: Edited offline and pushed back Test 1
-
-Nick DeMarco: Edited offline and pushed back Test 2
-
-Brandonnnnnn was hur 1/29/18
+The reop is organized into assignments that are for submission. 

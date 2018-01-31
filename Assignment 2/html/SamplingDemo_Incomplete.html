@@ -1,0 +1,466 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>SamplingDemo_Incomplete</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-01-31"><meta name="DC.source" content="SamplingDemo_Incomplete.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Setup</a></li><li><a href="#3">alternative downsample method.</a></li><li><a href="#4">Class Sampling Lab1</a></li><li><a href="#5">Implement Sampling Lab2</a></li><li><a href="#7">Represent in Frequency domain</a></li><li><a href="#8">Representing in color</a></li><li><a href="#9">Implement Sampling Lab3</a></li></ul></div><pre class="codeinput"><span class="comment">% Author: Abdallah S. Abdallah aua639@psu.edu</span>
+<span class="comment">% SamplingDemo_Incomplete - Version: 0.1</span>
+
+
+clear;
+clc;
+
+close <span class="string">all</span>; <span class="comment">% closes all figures</span>
+</pre><h2 id="2">Setup</h2><p>read images and convert to floating point format</p><pre class="codeinput">dog = imread(<span class="string">'./data/dog.bmp'</span>);
+cat = imread(<span class="string">'./data/cat.bmp'</span>);
+bird = imread(<span class="string">'./data/bird.bmp'</span>);
+fish = imread(<span class="string">'./data/fish.bmp'</span>);
+
+
+
+image1double = double (dog)/255;
+image2double = double (cat)/255;
+image3double = double (bird)/255;
+image4double = double (fish)/255;
+
+
+dog_gray = rgb2gray(dog);
+cat_gray = rgb2gray(cat);
+bird_gray = rgb2gray(bird);
+fish_gray = rgb2gray(fish);
+<span class="comment">% figure;imshowpair(image1_gray, image2_gray, 'montage');</span>
+
+out1 = zeros(floor(size(dog_gray,1)/2), floor(size(dog_gray,2)/2));
+
+
+
+
+<span class="comment">% Down sampling by a factor of two</span>
+out1 = dog_gray(1:2:end, 1:2:end);
+
+figure;imshow(out1);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_01.png" alt=""> <h2 id="3">alternative downsample method.</h2><pre class="codeinput">out11 = imresize(dog_gray,0.5);
+figure;imshow(out11);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_02.png" alt=""> <h2 id="4">Class Sampling Lab1</h2><p>Create an Upsampler with a factor of two using the imresize function</p><pre class="codeinput">scale =2; fontSize = 10;
+B = imresize(dog_gray,scale);
+figure; imshow(B);
+title(<span class="string">'Upsampler by factor of 2'</span>, <span class="string">'FontSize'</span>, fontSize, <span class="string">'Interpreter'</span>, <span class="string">'None'</span>);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_03.png" alt=""> <h2 id="5">Implement Sampling Lab2</h2><pre class="codeinput">numrows = 720; numcols = 820;
+
+cat_rs = imresize(cat_gray,[numrows/2 numcols/2]);
+dog_rs = imresize(dog_gray,[numrows/2 numcols/2]);
+fish_rs = imresize(fish_gray,[numrows/2 numcols/2]);
+bird_rs = imresize(bird_gray,[numrows/2 numcols/2]);
+newimg = [cat_rs bird_rs ;fish_rs dog_rs];
+figure;
+imshow(newimg)
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_04.png" alt=""> <pre class="codeinput">method = <span class="string">"nearest"</span>;
+cat_rs_1 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_1 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_1 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_1 = imresize(bird_gray,[numrows/2 numcols/2],method);
+newimg_1 = [cat_rs_1 bird_rs_1 ;fish_rs_1 dog_rs_1];
+
+method = <span class="string">"bilinear"</span>;
+cat_rs_2 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_2 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_2 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_2 = imresize(bird_gray,[numrows/2 numcols/2],method);
+newimg_2 = [cat_rs_2 bird_rs_2 ;fish_rs_2 dog_rs_2];
+
+method = <span class="string">"bicubic"</span>;
+cat_rs_3 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_3 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_3 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_3 = imresize(bird_gray,[numrows/2 numcols/2],method);
+
+newimg_3 = [cat_rs_3 bird_rs_3 ;fish_rs_3 dog_rs_3];
+
+figure;
+<span class="comment">% subplot(1,3,1);</span>
+imshow(newimg_1);
+figure;
+<span class="comment">% subplot(1,3,2);</span>
+imshow(newimg_2);
+figure;
+
+<span class="comment">% subplot(1,3,3);</span>
+imshow(newimg_3);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_05.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_06.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_07.png" alt=""> <h2 id="7">Represent in Frequency domain</h2><pre class="codeinput">ni_1_fft = fft2(newimg_1);
+ni_2_fft = fft2(newimg_2);
+ni_3_fft = fft2(newimg_3);
+<span class="comment">% figure;</span>
+<span class="comment">% subplot(1,3,1);</span>
+<span class="comment">% displayFFT(ni_1_fft);</span>
+<span class="comment">% subplot(1,3,2);</span>
+<span class="comment">%</span>
+<span class="comment">% displayFFT(ni_2_fft);</span>
+<span class="comment">% subplot(1,3,3);</span>
+<span class="comment">%</span>
+<span class="comment">% displayFFT(ni_3_fft);</span>
+
+
+
+diff12 = fftshift(log(1+abs(ni_1_fft)))- fftshift(log(1+abs(ni_2_fft)));
+diff13 = fftshift(log(1+abs(ni_1_fft)))- fftshift(log(1+abs(ni_3_fft)));
+diff23 = fftshift(log(1+abs(ni_2_fft)))- fftshift(log(1+abs(ni_3_fft)));
+
+figure;
+imshow(diff12);
+<span class="comment">% displayFFT(diff12);</span>
+title(<span class="string">'diff12'</span>);
+
+figure;
+imshow(diff13);
+title(<span class="string">'diff13'</span>);
+
+figure;
+imshow(diff23);
+title(<span class="string">'diff23'</span>);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_08.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_09.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_10.png" alt=""> <h2 id="8">Representing in color</h2><p><b>First diff</b></p><pre class="codeinput">XX = (uint8(diff12));
+<span class="comment">% Compute the thresholds</span>
+thresh = multithresh(XX,2);
+
+<span class="comment">% Apply the thresholds to obtain segmented image</span>
+seg_I = imquantize(XX,thresh);
+
+<span class="comment">% Show the various segments in the segmented image in color</span>
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title(<span class="string">'dif13'</span>);
+<span class="comment">% %% Second Diff</span>
+XX = (uint8(diff12));
+<span class="comment">% Compute the thresholds</span>
+thresh = multithresh(XX,2);
+
+<span class="comment">% Apply the thresholds to obtain segmented image</span>
+seg_I = imquantize(XX,thresh);
+
+<span class="comment">% Show the various segments in the segmented image in color</span>
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title(<span class="string">'dif13'</span>);
+<span class="comment">% Third Diff</span>
+XX = (uint8(diff12));
+<span class="comment">% Compute the thresholds</span>
+thresh = multithresh(XX,2);
+
+<span class="comment">% Apply the thresholds to obtain segmented image</span>
+seg_I = imquantize(XX,thresh);
+
+<span class="comment">% Show the various segments in the segmented image in color</span>
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title(<span class="string">'dif23'</span>);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_11.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_12.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_13.png" alt=""> <h2 id="9">Implement Sampling Lab3</h2><pre class="codeinput">br1 = imresize(bird_gray,2,<span class="string">'nearest'</span>);
+cbr1 = edge(br1, <span class="string">'canny'</span>);
+br2 = imresize(bird_gray,2,<span class="string">'bilinear'</span>);
+cbr2 = edge(br2, <span class="string">'canny'</span>);
+br3 = imresize(bird_gray,2,<span class="string">'bicubic'</span>);
+cbr3 = edge(br3, <span class="string">'canny'</span>);
+
+figure;
+imshow(cbr1);
+title(<span class="string">'cbr1'</span>);
+
+figure;
+imshow(cbr1);
+title(<span class="string">'cbr2'</span>);
+
+figure;
+imshow(cbr1);
+title(<span class="string">'cbr3'</span>);
+figure;
+imshow(cbr1 -cbr2);
+title(<span class="string">'diff12'</span>);
+
+figure;
+imshow(cbr1 -cbr3);
+title(<span class="string">'diff13'</span>);
+
+figure;
+imshow(cbr2 -cbr3);
+title(<span class="string">'diff23'</span>);
+</pre><img vspace="5" hspace="5" src="SamplingDemo_Incomplete_14.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_15.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_16.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_17.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_18.png" alt=""> <img vspace="5" hspace="5" src="SamplingDemo_Incomplete_19.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+% Author: Abdallah S. Abdallah aua639@psu.edu
+% SamplingDemo_Incomplete - Version: 0.1
+
+
+clear;
+clc;
+
+close all; % closes all figures
+
+%% Setup
+% read images and convert to floating point format
+dog = imread('./data/dog.bmp');
+cat = imread('./data/cat.bmp');
+bird = imread('./data/bird.bmp');
+fish = imread('./data/fish.bmp');
+
+
+
+image1double = double (dog)/255;
+image2double = double (cat)/255;
+image3double = double (bird)/255;
+image4double = double (fish)/255;
+
+
+dog_gray = rgb2gray(dog);
+cat_gray = rgb2gray(cat);
+bird_gray = rgb2gray(bird);
+fish_gray = rgb2gray(fish);
+% figure;imshowpair(image1_gray, image2_gray, 'montage');
+
+out1 = zeros(floor(size(dog_gray,1)/2), floor(size(dog_gray,2)/2));
+
+
+
+
+% Down sampling by a factor of two
+out1 = dog_gray(1:2:end, 1:2:end);
+
+figure;imshow(out1);
+
+%% alternative downsample method.
+
+out11 = imresize(dog_gray,0.5);
+figure;imshow(out11);
+
+%% Class Sampling Lab1 
+% Create an Upsampler with a factor of two using the imresize function
+scale =2; fontSize = 10; 
+B = imresize(dog_gray,scale); 
+figure; imshow(B); 
+title('Upsampler by factor of 2', 'FontSize', fontSize, 'Interpreter', 'None');
+
+
+%% Implement Sampling Lab2
+numrows = 720; numcols = 820; 
+
+cat_rs = imresize(cat_gray,[numrows/2 numcols/2]);
+dog_rs = imresize(dog_gray,[numrows/2 numcols/2]);
+fish_rs = imresize(fish_gray,[numrows/2 numcols/2]);
+bird_rs = imresize(bird_gray,[numrows/2 numcols/2]);
+newimg = [cat_rs bird_rs ;fish_rs dog_rs]; 
+figure; 
+imshow(newimg)
+%%
+
+method = "nearest"; 
+cat_rs_1 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_1 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_1 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_1 = imresize(bird_gray,[numrows/2 numcols/2],method);
+newimg_1 = [cat_rs_1 bird_rs_1 ;fish_rs_1 dog_rs_1]; 
+
+method = "bilinear"; 
+cat_rs_2 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_2 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_2 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_2 = imresize(bird_gray,[numrows/2 numcols/2],method);
+newimg_2 = [cat_rs_2 bird_rs_2 ;fish_rs_2 dog_rs_2]; 
+
+method = "bicubic"; 
+cat_rs_3 = imresize(cat_gray,[numrows/2 numcols/2],method);
+dog_rs_3 = imresize(dog_gray,[numrows/2 numcols/2],method);
+fish_rs_3 = imresize(fish_gray,[numrows/2 numcols/2],method);
+bird_rs_3 = imresize(bird_gray,[numrows/2 numcols/2],method);
+
+newimg_3 = [cat_rs_3 bird_rs_3 ;fish_rs_3 dog_rs_3]; 
+
+figure; 
+% subplot(1,3,1); 
+imshow(newimg_1); 
+figure; 
+% subplot(1,3,2); 
+imshow(newimg_2); 
+figure; 
+
+% subplot(1,3,3); 
+imshow(newimg_3); 
+
+%% Represent in Frequency domain
+
+ni_1_fft = fft2(newimg_1); 
+ni_2_fft = fft2(newimg_2); 
+ni_3_fft = fft2(newimg_3); 
+% figure; 
+% subplot(1,3,1); 
+% displayFFT(ni_1_fft); 
+% subplot(1,3,2); 
+% 
+% displayFFT(ni_2_fft); 
+% subplot(1,3,3); 
+% 
+% displayFFT(ni_3_fft); 
+
+
+
+diff12 = fftshift(log(1+abs(ni_1_fft)))- fftshift(log(1+abs(ni_2_fft)));
+diff13 = fftshift(log(1+abs(ni_1_fft)))- fftshift(log(1+abs(ni_3_fft)));
+diff23 = fftshift(log(1+abs(ni_2_fft)))- fftshift(log(1+abs(ni_3_fft)));
+
+figure; 
+imshow(diff12); 
+% displayFFT(diff12); 
+title('diff12'); 
+
+figure; 
+imshow(diff13); 
+title('diff13'); 
+
+figure; 
+imshow(diff23); 
+title('diff23'); 
+
+
+%% Representing in color
+% *First diff*
+XX = (uint8(diff12));
+% Compute the thresholds
+thresh = multithresh(XX,2);
+
+% Apply the thresholds to obtain segmented image
+seg_I = imquantize(XX,thresh);
+
+% Show the various segments in the segmented image in color
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title('dif13');
+% %% Second Diff
+XX = (uint8(diff12));
+% Compute the thresholds
+thresh = multithresh(XX,2);
+
+% Apply the thresholds to obtain segmented image
+seg_I = imquantize(XX,thresh);
+
+% Show the various segments in the segmented image in color
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title('dif13');
+% Third Diff
+XX = (uint8(diff12));
+% Compute the thresholds
+thresh = multithresh(XX,2);
+
+% Apply the thresholds to obtain segmented image
+seg_I = imquantize(XX,thresh);
+
+% Show the various segments in the segmented image in color
+RGB = label2rgb(seg_I);
+figure, imshow(RGB);colorbar;
+title('dif23');
+
+
+
+
+
+
+
+%% Implement Sampling Lab3
+
+br1 = imresize(bird_gray,2,'nearest');
+cbr1 = edge(br1, 'canny');
+br2 = imresize(bird_gray,2,'bilinear');
+cbr2 = edge(br2, 'canny');
+br3 = imresize(bird_gray,2,'bicubic');
+cbr3 = edge(br3, 'canny');
+
+figure; 
+imshow(cbr1); 
+title('cbr1'); 
+
+figure; 
+imshow(cbr1); 
+title('cbr2'); 
+
+figure; 
+imshow(cbr1); 
+title('cbr3'); 
+figure; 
+imshow(cbr1 -cbr2); 
+title('diff12'); 
+
+figure; 
+imshow(cbr1 -cbr3); 
+title('diff13'); 
+
+figure; 
+imshow(cbr2 -cbr3); 
+title('diff23'); 
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

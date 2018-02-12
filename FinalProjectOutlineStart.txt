@@ -1,0 +1,4 @@
+subtract bacground
+create features of the image 
+cluster these features to estimate where and object would be 
+create a feature set for these estimated objects 

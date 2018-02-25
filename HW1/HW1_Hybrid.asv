@@ -2,15 +2,15 @@
 % Hybrid Image
 
 clc;
-
+clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('fish.bmp');
-image2 = imread('motorcycle.bmp');
+image1 = imread('./data/fish.bmp');
+image2 = imread('.data/motorcycle.bmp');
 
-image1 = imresize(image1,[307,453]);
-image2 = imresize(image2,[
+image1 = imresize(image1,[307 453]);
+image2 = imresize(image2,[307 453]);
 
 figure('Name', 'Images','NumberTitle','off');imshowpair(image1, image2, 'montage');
 

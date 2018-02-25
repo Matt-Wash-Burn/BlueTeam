@@ -6,8 +6,8 @@ clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('fish.bmp');
-image2 = imread('motorcycle.bmp');
+image1 = imread('C:\Users\njd5223\Downloads\data\fish.bmp');
+image2 = imread('C:\Users\njd5223\Downloads\data\motorcycle.bmp');
 
 image1 = imresize(image1,[307 453]);
 image2 = imresize(image2,[307 453]);

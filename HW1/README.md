@@ -1,6 +1,7 @@
 # Homework 1
 
 ### Question 1
+- After pulling all files from GitHub, move them into the MatLab default directory folder (usually in Documents->MATLAB) this will allow you to run all scripts without having to change any image filepaths. 
 
 #### a.1
 - The two images (fish.bmp and motorcycle.bmp) should be in the same directory as the a.1 script. 

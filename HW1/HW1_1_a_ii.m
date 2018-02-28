@@ -10,6 +10,13 @@ image1 = imread('./data/dog.bmp');
 image2 = imread('./data/einstein.bmp');
 image3 = imread('./data/fish.bmp');
 
+figure; imshow(image1);
+title("Dog - Original Image");
+figure; imshow(image2);
+title("Einstein - Original Image");
+figure; imshow(image3);
+title("Fish - Original Image");
+
 image1double = double(image1)/255;
 image2double = double(image2)/255;
 image3double = double(image3)/255;
@@ -17,6 +24,13 @@ image3double = double(image3)/255;
 im1 = rgb2gray(image1double);
 im2 = rgb2gray(image2double);
 im3 = rgb2gray(image3double);
+
+figure; imshow(im1);
+title("Dog - Grayscale Image");
+figure; imshow(im2);
+title("Einstein - Grayscale Image");
+figure; imshow(im3);
+title("Fish - Grayscale Image");
 
 
 %% Applying the filters on input images

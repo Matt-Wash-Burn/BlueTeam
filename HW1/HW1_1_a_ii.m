@@ -6,9 +6,9 @@ clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('dog.bmp');
-image2 = imread('einstein.bmp');
-image3 = imread('fish.bmp');
+image1 = imread('./data/dog.bmp');
+image2 = imread('./data/einstein.bmp');
+image3 = imread('./data/fish.bmp');
 
 image1double = double(image1)/255;
 image2double = double(image2)/255;

@@ -1,4 +1,4 @@
-% Author: Brandon Bench
+% Author: Nick DeMarco
 % Hybrid Image
 
 clc;

@@ -6,19 +6,23 @@ clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('C:\Users\njd5223\Downloads\data\fish.bmp');
-image2 = imread('C:\Users\njd5223\Downloads\data\motorcycle.bmp');
+image1 = imread('.data/fish.bmp');
+image2 = imread('.data/motorcycle.bmp');
 
 image1 = imresize(image1,[307 453]);
 image2 = imresize(image2,[307 453]);
 
-figure('Name', 'Images','NumberTitle','off');imshowpair(image1, image2, 'montage');
+figure('Name', 'Original Images','NumberTitle','off');imshowpair(image1, image2, 'montage');
+title("Original Images");
 
 image1double = double(image1)/255;
 image2double = double(image2)/255;
 
 im1 = rgb2gray(image1double);
 im2 = rgb2gray(image2double);
+
+figure('Name', 'Grayscale Images','NumberTitle','off');imshowpair(im1, im2, 'montage');
+title("Grayscale Images");
 
 [im1h, im1w] = size(im1);
 [im2h, im2w] = size(im2);
@@ -58,6 +62,7 @@ final_img = im1_fil_fft + im2_fil_fft;
 final_image_fil = ifft2(final_img);
 final_image_fil = final_image_fil(1+hs:size(im1,1)+hs, 1+hs:size(im1, 2)+hs);
 figure('Name', 'Hybrid Image - Fish (Maginitude) & Motorcycle (Phase)','NumberTitle','off');imshow(final_image_fil);
+title("Hybrid Image - Fish (Magnitude) & Motorcycle (Phase)");
 
 %% Applying the filters on input image (1)
 im2_fft_part2  = fft2(im2,  fftsize, fftsize);                    % 1) fft im with padding
@@ -80,11 +85,12 @@ RGB = insertShape(mask, 'FilledCircle', [0, 0, r]);
 RGB_mask = RGB(:, :, 1) > 0;
 im1_fil_fft_part2 = im1_fft_part2 .* RGB_mask;
 
-%% Ouput - Part 1
+%% Ouput - Part 2
 final_img_part2 = im2_fil_fft_part2 + im1_fil_fft_part2;
 final_image_fil_part2 = ifft2(final_img_part2);
 final_image_fil_part2 = final_image_fil_part2(1+hs:size(im2,1)+hs, 1+hs:size(im2, 2)+hs);
 figure('Name', 'Hybrid Image - Motorcycle (Maginitude) & Fish (Phase)','NumberTitle','off');imshow(final_image_fil_part2);
+title("Hybrid Image - Motorcycle (Magnitude) & Fish (Phase)");
 
 
 

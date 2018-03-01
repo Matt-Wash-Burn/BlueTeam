@@ -27,70 +27,29 @@ title("Grayscale Images");
 [im1h, im1w] = size(im1);
 [im2h, im2w] = size(im2);
 
-hs = 50; % filter half-size
-fil = fspecial('gaussian', hs*2+1, 10); 
-fil2 = fspecial('sobel'); 
+rows = max(im1h, im2h);
+cols = max(im1w, im2w);
 
-%radius
-r = 1000;
+%% Take the FFT of the two images
+im1_FFT = fft2(im1, rows, cols);
+im2_FFT = fft2(im2, rows, cols);
 
-fftsize = 1024; % should be order of 2 (for speed) and include padding
+%% Find magnitude and phase of the two images
+mag1 = abs(im1_FFT);
+mag2 = abs(im2_FFT);
 
-%% Applying the filters on input image (1)
-im1_fft  = fft2(im1,  fftsize, fftsize);                    % 1) fft im with padding
-fil_fft = fft2(fil, fftsize, fftsize);                    % 2) fft fil, pad to same size as image
+phase1 = angle(im1_FFT);
+phase2 = angle(im2_FFT);
 
-sizeVar = size(im1_fft);
-mask = zeros(sizeVar);
-RGB = insertShape(mask, 'FilledCircle', [0, 0, r]);
-RGB_mask = RGB(:, :, 1) > 0;
-im1_fil_fft = im1_fft .* ~RGB_mask;
+%% Recompute the frequency
+output1 = mag1 .* exp(1i*phase2);
+output2 = mag2 .* exp(1i*phase1);
 
-%% Repeat the implementation steps above on input image (2)
+%% Find inverse images
+inv1 = real(ifft2(output1));
+inv2 = real(ifft2(output2));
 
-im2_fft  = fft2(im2,  fftsize, fftsize);                    % 1) fft im with padding
-fil2_fft = fft2(fil2, fftsize, fftsize);                    % 2) fft fil, pad to same size as image
-
-sizeVar = size(im2_fft);
-mask = zeros(sizeVar);
-RGB = insertShape(mask, 'FilledCircle', [0, 0, r]);
-RGB_mask = RGB(:, :, 1) > 0;
-im2_fil_fft = im2_fft .* RGB_mask;
-
-%% Ouput - Part 1
-final_img = im1_fil_fft + im2_fil_fft;
-final_image_fil = ifft2(final_img);
-final_image_fil = final_image_fil(1+hs:size(im1,1)+hs, 1+hs:size(im1, 2)+hs);
-figure('Name', 'Hybrid Image - Fish (Maginitude) & Motorcycle (Phase)','NumberTitle','off');imshow(final_image_fil);
-title("Hybrid Image - Fish (Magnitude) & Motorcycle (Phase)");
-
-%% Applying the filters on input image (1)
-im2_fft_part2  = fft2(im2,  fftsize, fftsize);                    % 1) fft im with padding
-fil_fft_part2 = fft2(fil, fftsize, fftsize);                    % 2) fft fil, pad to same size as image
-
-sizeVar = size(im2_fft_part2);
-mask = zeros(sizeVar);
-RGB = insertShape(mask, 'FilledCircle', [0, 0, r]);
-RGB_mask = RGB(:, :, 1) > 0;
-im2_fil_fft_part2 = im2_fft_part2 .* ~RGB_mask;
-
-%% Repeat the implementation steps above on input image (2)
-
-im1_fft_part2  = fft2(im1,  fftsize, fftsize);                    % 1) fft im with padding
-fil2_fft_part2 = fft2(fil2, fftsize, fftsize);                    % 2) fft fil, pad to same size as image
-
-sizeVar = size(im1_fft_part2);
-mask = zeros(sizeVar);
-RGB = insertShape(mask, 'FilledCircle', [0, 0, r]);
-RGB_mask = RGB(:, :, 1) > 0;
-im1_fil_fft_part2 = im1_fft_part2 .* RGB_mask;
-
-%% Ouput - Part 2
-final_img_part2 = im2_fil_fft_part2 + im1_fil_fft_part2;
-final_image_fil_part2 = ifft2(final_img_part2);
-final_image_fil_part2 = final_image_fil_part2(1+hs:size(im2,1)+hs, 1+hs:size(im2, 2)+hs);
-figure('Name', 'Hybrid Image - Motorcycle (Maginitude) & Fish (Phase)','NumberTitle','off');imshow(final_image_fil_part2);
-title("Hybrid Image - Motorcycle (Magnitude) & Fish (Phase)");
-
-
+%% Diplay New Hybrid Images
+figure('Name', 'Hybrid Images','NumberTitle','off');imshowpair(inv1, inv2, 'montage');
+title("Hybrid Images");
 

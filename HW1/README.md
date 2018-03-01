@@ -1,6 +1,7 @@
 # Homework 1
 
 ### Question 1
+
 - After pulling all files from GitHub, move them into the MatLab default directory folder (usually in Documents->MATLAB) this will allow you to run all scripts without having to change any image filepaths. 
 - If this is not working you need to right click on the current file tab (ex. 'HW1_Hybrid') and select "change current folder to...". Then in the directory view on the left side of the window right click on the data folder and select "add to path". 
 
@@ -18,5 +19,10 @@
 - The three images (dog.bmp, fish.bmp and einstein.bmp) should be in the same directory as the a.3 script.
 - Open the script 'HW1_1_a_iiI' and click 'run' or press 'F5'. 
 - Three figures should appear that contain a pair of images consisting of the original image and its nuetralized phase components.
+
+#### b
+- To view PDF reports from the first three parts, open 'HW1_Part2.pdf'
+
+#### c
 
 ### Question 2

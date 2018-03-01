@@ -6,7 +6,7 @@ clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('./data/dog.bmp');
+image1 = imread('.data/dog.bmp');
 image2 = imread('.data/einstein.bmp');
 image3 = imread('.data/fish.bmp');
 
@@ -38,16 +38,22 @@ im1_fft  = fft2(im1);
 im2_fft  = fft2(im2);
 im3_fft  = fft2(im3);
 
+gh = fftshift(im1_fft);
+g2 = fftshift(im2_fft);
+g3 = fftshift(im3_fft);
 %% Nuetralizing the Phase to display Magnitude only
-im1_M = abs(im1_fft);
-im2_M = abs(im2_fft);
-im3_M = abs(im3_fft);
+im1_M = abs(gh);
+im2_M = abs(g2);
+im3_M = abs(g3);
 
 %% Inverse fft2
 restoredP1 = log(abs(ifft2(im1_M*exp(1i*0)))+1);
 restoredP2 = log(abs(ifft2(im2_M*exp(1i*0)))+1);
 restoredP3 = log(abs(ifft2(im3_M*exp(1i*0)))+1);
 
+re = fftshift(restoredP1);
+r1 = fftshift(restoredP2);
+r2 = fftshift(restoredP3);
 %% Calculating plotting limits
 I_Mag_min = min(min(abs(restoredP1)));
 I_Mag_max = max(max(abs(restoredP1)));
@@ -55,15 +61,15 @@ I_Mag_max = max(max(abs(restoredP1)));
 
 figure('position', [200, 200, 1000, 400]); subplot(1,2,1), imshow(image1), title("Fluffy")
 subplot(1,2,2), 
-imshow(abs(restoredP1),[I_Mag_min I_Mag_max ]);
+imshow(abs(re),[I_Mag_min I_Mag_max ]);
 title("Dog Phase Nuetralized")
 
 figure('position', [200, 200, 1000, 400]); subplot(1,2,1), imshow(image2), title("Mr. Einstein")
 subplot(1,2,2), 
-imshow(abs(restoredP2),[I_Mag_min I_Mag_max ]);
+imshow(abs(r1),[I_Mag_min I_Mag_max ]);
 title("Albert Phase Nuetralized")
 
 figure('position', [200, 200, 1000, 400]); subplot(1,2,1), imshow(image3), title("Pescado")
 subplot(1,2,2), 
-imshow(abs(restoredP3),[I_Mag_min I_Mag_max ]);
+imshow(abs(r2),[I_Mag_min I_Mag_max ]);
 title("Fish Phase Nuetralized")

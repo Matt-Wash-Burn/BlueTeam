@@ -6,9 +6,9 @@ clear;
 close all; % closes all figures
 
 %% Setup
-image1 = imread('./data/dog.bmp');
-image2 = imread('./data/einstein.bmp');
-image3 = imread('./data/fish.bmp');
+image1 = imread('.data/dog.bmp');
+image2 = imread('.data/einstein.bmp');
+image3 = imread('.data/fish.bmp');
 
 figure; imshow(image1);
 title("Dog - Original Image");

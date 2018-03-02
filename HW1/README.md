@@ -20,9 +20,6 @@
 - Open the script 'HW1_1_a_iiI' and click 'run' or press 'F5'. 
 - Three figures should appear that contain a pair of images consisting of the original image and its nuetralized phase components.
 
-#### b
-- To view PDF reports from the first three parts, open 'HW1_Part2.pdf'
+#### Delivery Report
+- Contains the one page report, and the additions items (Timing Charts, and Run and Publish)
 
-#### c
-
-### Question 2

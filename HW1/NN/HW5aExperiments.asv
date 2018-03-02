@@ -1,5 +1,6 @@
-%% Feature 
-% DESCRIPTIVE TEXT
+%% Feature Set Up
+% This section will go throught the steps to extract some features that
+% will be used to train our new NN. The one that dosen't "Blow Up" the cpu 
 
 
 clc; clear all; close all; 
@@ -56,3 +57,7 @@ figure; imagesc(newRe);
 stuff = reshape(newRe, [1,256]); 
 
 
+
+TheSolution = ExtractFeaturesMagic(trainingPixels(4,2:end)); 
+
+figure; imagesc(newRe); 

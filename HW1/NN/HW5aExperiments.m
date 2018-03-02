@@ -50,10 +50,15 @@ imshow(abs(re),[I_Mag_min I_Mag_max ]);
 
 %% Extract lower frequencies by just cutting to 16 x 16 
 newRe = re(5:20,5:20); 
-figure; imagesc(newRe); 
+% figure; imagesc(newRe); 
 
 %% Reshape to return to NN 
 
 stuff = reshape(newRe, [1,256]); 
 
 
+%% Testing the function 
+
+TheSolution = ExtractFeaturesMagic(trainingPixels(4,2:end)); 
+
+figure; imagesc(reshape(newRe,[16,16])); 

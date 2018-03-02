@@ -1,3 +1,7 @@
+%% Feature 
+% DESCRIPTIVE TEXT
+
+
 clc; clear all; close all; 
 
 %% Load the data that was extracted form the csv file earlier. 
@@ -42,4 +46,13 @@ I_Mag_max = max(max(abs(restoredP1)));
 figure; 
 imshow(abs(re),[I_Mag_min I_Mag_max ]);
 
-newRe = re
+
+%% Extract lower frequencies by just cutting to 16 x 16 
+newRe = re(5:20,5:20); 
+figure; imagesc(newRe); 
+
+%% Reshape to return to NN 
+
+stuff = reshape(newRe, [1,256]); 
+
+

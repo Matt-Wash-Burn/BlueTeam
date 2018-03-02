@@ -1,3 +1,8 @@
+%% Feature Set Up
+% This section will go throught the steps to extract some features that
+% will be used to train our new NN. The one that dosen't "Blow Up" the cpu 
+
+
 clc; clear all; close all; 
 
 %% Load the data that was extracted form the csv file earlier. 

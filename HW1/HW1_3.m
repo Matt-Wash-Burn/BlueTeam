@@ -1,6 +1,3 @@
-% Gathered and edited by  Abdallah S. Abdallah aua639@psu.edu
-% based on the tutorial at https://blogs.mathworks.com/loren/2015/08/04/artificial-neural-networks-for-beginners/#1168dbb4-1365-4b63-8326-140263e2072f
-
 
 clear;
 clc;
@@ -63,14 +60,6 @@ end
 
 disp('Loaded ....');
 
-% The first column is the label that shows the correct digit for each sample in the dataset,
-% and each row is a sample. In the remaining columns, a row represents a 48 x 48 image of a
-% handwritten digit, but all pixels are placed in a single row, rather than in the
-% original rectangular form. 
-
-%To visualize the digits, we need to reshape the rows
-% into 48 x 48 matrices. You can use reshape for that, except that we need to transpose the 
-% data, because  reshape operates by column-wise rather than row-wise.
 
 %% Reshape the data to Visualize example for the digits sample
 figure    ;                                                 % plot images
@@ -83,17 +72,11 @@ for i = 1:25                                                % preview first 25 s
 end
 
 
-%% The labels range from 0 to 9, but we will use '10' to represent '0' because MATLAB is indexing is 1-based.
-
-% 1 --> [1; 0; 0; 0; 0; 0; 0; 0; 0; 0]
-% 2 --> [0; 1; 0; 0; 0; 0; 0; 0; 0; 0]
-% 3 --> [0; 0; 1; 0; 0; 0; 0; 0; 0; 0]
-%             :
-% 0 --> [0; 0; 0; 0; 0; 0; 0; 0; 0; 1]
 %% The dataset stores samples in rows rather than in columns, so you need to
 % transpose it. Then you will partition the data so that you hold out 1/3 of the data
 % for model evaluation, and you will only use 2/3 for training our artificial neural network model.
 
+%n = 9000;
 n = size(trainingPixels, 1);                    % number of samples in the dataset
 targets  = double(trainingPixels(:,1));                 % 1st column is |label|
 targets(targets == 0) = 7;                      % use '7' to present '0'
@@ -152,17 +135,19 @@ sum(Ytest == Ypred) / length(Ytest); % compare the predicted vs. actual
 % - you can simply adapt the script to do a parameter sweep.
 
 
-%% Sweeo Code Block
+%% Sweep Code Block
 %% Sweeping to choose different sizes for the hidden layer
 
-sweep = [10,50:50:500];                 % parameter values to test
-scores = zeros(length(sweep), 1);       % pre-allocation
+sweep = [100,100:100:1000];                 % parameter values to test
+scores = zeros(length(sweep), 1);          % pre-allocation
 % we will use models to save the several neural network result from this
 % sweep and run loop
 models = cell(length(sweep), 1);        % pre-allocation
 x = Xtrain;                             % inputs
 t = Ytrain;                             % targets
 trainFcn = 'trainscg';                  % scaled conjugate gradient
+
+% figure
 for i = 1:length(sweep)
     hiddenLayerSize = sweep(i);         % number of hidden layer neurons
     net = patternnet(hiddenLayerSize);  % pattern recognition network
@@ -174,7 +159,15 @@ for i = 1:length(sweep)
     p = net(Xtest);                     % predictions
     [~, p] = max(p);                    % predicted labels
     scores(i) = sum(Ytest == p) /length(Ytest);  % categorization accuracy
-        
+%     plot(sweep, scores, '.-')
+% xlabel('number of hidden neurons')
+% ylabel('categorization accuracy')
+% title('Number of hidden neurons vs. accuracy')
+%     pause();
+
+
+
+    
 end
 % Let's now plot how the categorization accuracy changes versus number of 
 % neurons in the hidden layer.

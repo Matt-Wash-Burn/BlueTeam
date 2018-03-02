@@ -107,7 +107,7 @@ targetsd = targetsd';               % trsanspose dummy variable
 rng(1);                             % for reproducibility
 
 %set n to 9000 to make sweep easier 
-n = 21000; 
+n = 28707; 
 patitionObject = cvpartition(n,'Holdout',n/3);   % hold out 1/3 of the dataset
 
 Xtrain = inputs(:, training(patitionObject));    % 2/3 of the input for training
@@ -121,7 +121,7 @@ Ytestd = targetsd(:, test(patitionObject));      % 1/3 of the dummy variable for
 %% Sweeo Code Block
 %% Sweeping to choose different sizes for the hidden layer
 
-sweep = [10,50:50:1000];                 % parameter values to test
+sweep = [10,10:10:250];                 % parameter values to test
 scores = zeros(length(sweep), 1);       % pre-allocation
 % we will use models to save the several neural network result from this
 % sweep and run loop

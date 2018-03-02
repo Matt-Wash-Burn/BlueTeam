@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Delivery report Pt 2</h1><!--introduction--><p>This report contains the awnsers to questions posed in the Delivarble</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Deliverable 3ci</a></li><li><a href="#2">Deliverable 3cii</a></li><li><a href="#3">Part 5 Sweep ROC</a></li></ul></div><h2 id="1">Deliverable 3ci</h2><pre class="codeinput"><span class="comment">% The number of neurons that worked better for step 3  was 400 for a sample</span>
+  </style></head><body><div class="content"><h1>Delivery report Pt 2</h1><!--introduction--><p>This report contains the awnsers to questions posed in the Delivarble</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Deliverable 3ci</a></li><li><a href="#2">Deliverable 3cii</a></li><li><a href="#3">Part 3 Training a machine to understand emtion (The Sweep)</a></li><li><a href="#4">Part 4 Methods to reduce complexity</a></li><li><a href="#5">Part 5 Sweep ROC</a></li></ul></div><h2 id="1">Deliverable 3ci</h2><pre class="codeinput"><span class="comment">% The number of neurons that worked better for step 3  was 400 for a sample</span>
 <span class="comment">% size of 9000. This number of neurons worked better because increasing the</span>
 <span class="comment">% number of neurons showed a decrese in accuracy and favorable readings</span>
 <span class="comment">% from the ROC (Receiver Operating Characteristic). This is most commanly</span>
@@ -76,12 +76,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <span class="comment">%showed an increased accuraccy at different levels of neurons in the sweep.</span>
 <span class="comment">%This was because the features that were fed to the input had more</span>
 <span class="comment">%information in them for the neural network.</span>
-</pre><h2 id="3">Part 5 Sweep ROC</h2><pre class="codeinput"><span class="keyword">for</span> i = 1:21
+</pre><h2 id="3">Part 3 Training a machine to understand emtion (The Sweep)</h2><h2 id="4">Part 4 Methods to reduce complexity</h2><h2 id="5">Part 5 Sweep ROC</h2><pre class="codeinput"><span class="keyword">for</span> i = 1:21
     formatSpec = <span class="string">"./Q5figSaves/N%dRoc"</span>;
     savefigpath = sprintf(formatSpec,sweep(i));
     openfig(savefigpath);
 
 <span class="keyword">end</span>
+<span class="comment">% close all</span>
 </pre><img vspace="5" hspace="5" src="report2_01.png" alt=""> <img vspace="5" hspace="5" src="report2_02.png" alt=""> <img vspace="5" hspace="5" src="report2_03.png" alt=""> <img vspace="5" hspace="5" src="report2_04.png" alt=""> <img vspace="5" hspace="5" src="report2_05.png" alt=""> <img vspace="5" hspace="5" src="report2_06.png" alt=""> <img vspace="5" hspace="5" src="report2_07.png" alt=""> <img vspace="5" hspace="5" src="report2_08.png" alt=""> <img vspace="5" hspace="5" src="report2_09.png" alt=""> <img vspace="5" hspace="5" src="report2_10.png" alt=""> <img vspace="5" hspace="5" src="report2_11.png" alt=""> <img vspace="5" hspace="5" src="report2_12.png" alt=""> <img vspace="5" hspace="5" src="report2_13.png" alt=""> <img vspace="5" hspace="5" src="report2_14.png" alt=""> <img vspace="5" hspace="5" src="report2_15.png" alt=""> <img vspace="5" hspace="5" src="report2_16.png" alt=""> <img vspace="5" hspace="5" src="report2_17.png" alt=""> <img vspace="5" hspace="5" src="report2_18.png" alt=""> <img vspace="5" hspace="5" src="report2_19.png" alt=""> <img vspace="5" hspace="5" src="report2_20.png" alt=""> <img vspace="5" hspace="5" src="report2_21.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Delivery report Pt 2 
@@ -104,6 +105,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %This was because the features that were fed to the input had more
 %information in them for the neural network. 
 
+%% Part 3 Training a machine to understand emtion (The Sweep)
+
+
+%% Part 4 Methods to reduce complexity 
+
+
+
 %% Part 5 Sweep ROC
 
 
@@ -113,6 +121,7 @@ for i = 1:21
     openfig(savefigpath);
     
 end
+% close all 
 
 
 

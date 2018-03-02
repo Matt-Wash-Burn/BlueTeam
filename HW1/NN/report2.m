@@ -34,7 +34,7 @@ for i = 1:21
     openfig(savefigpath);
     
 end
-close all 
+% close all 
 
 
 

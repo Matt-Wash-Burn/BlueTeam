@@ -1,7 +1,7 @@
 How to use Question 2 Part 3 code
 1. Download the dataset from Kaggle. Will need to unzip the tar file to get
    the .csv file.
-2. Run the HW1_Question2_Part3.m file from lines 1 - 105. This will parse
+2. Run the HW1_Question2_Part3.m file from lines 1 - 107. This will parse
    the data file into something useful for us. 
 3. After it is done running, type nnstart into the command line of matlab.
 4. After the Neural Network opens, click on pattern recognition.
@@ -16,8 +16,8 @@ How to use Question 2 Part 3 code
 10.When done, press next. Then, press next to skip Evaluate Network. In 
   "Deploy Solution", select "MATLAB Matrix-Only Function" and save t the 
    generated code. I save it as myNNfun.m
-11. When finished, you can now run the code from lines 113 - 116.
-12. Lastly, you can run lines 123 - 177 to sweep iterations 
+11. When finished, you can now run the code from lines 115 - 118.
+12. Lastly, you can run lines 123 - 179 to sweep iterations 
     to see how accurate our 400 hidden nuerons were. 
 
 

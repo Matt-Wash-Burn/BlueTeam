@@ -1,6 +1,6 @@
 clc; clear all; close all; 
 %% Delivery report Pt 2 
-% This report contains the awnsers to questions posed in the Delivarble 
+% This report contains the awnsers to questions posed in the Deliverable 
 
 %% Deliverable 3ci
 
@@ -36,8 +36,16 @@ image8 = imresize(imread('./Final/800.jpg'), 0.5);
 image9 = imresize(imread('./Final/900.jpg'), 0.5);
 image10 = imresize(imread('./Final/1000.jpg'), 0.5);
 final = imread('./Final/1000.jpg');
-plot = [image1 image2 image3 image4 image5; image6 image7 image8 image9 image10];
-figure; imshow(plot); title('Accuracy through each iteration');
+plot = [image1 image2];
+plot2 = [image3 image4];
+plot3 = [image5 image6];
+plot4 = [image7 image8];
+plot5 = [image9 image10];
+figure; imshow(plot); title('100 and 200 hidden neurons sweep');
+figure; imshow(plot2); title('300 and 400 hidden neurons sweep');
+figure; imshow(plot3); title('500 and 600 hidden neurons sweep');
+figure; imshow(plot4); title('700 and 800 hidden neurons sweep');
+figure; imshow(plot5); title('900 and 1000 hidden neurons sweep');
 figure; imshow(final); title('Final System Accuracy');
 
 %Below shows each sweep iteration from 100 to 1000, incrementing by 100
@@ -58,6 +66,7 @@ figure; imshow(image_p); title('Accuracy after percentage change');
 %overfitting more. However, the results yielded less accuracy as seen
 %below.
 
+%% Part 3 ROC curves of each iteration 
 image1_n = imresize(imread('./Final/100 neurons.jpg'), 0.5);
 image2_n = imresize(imread('./Final/200 neurons.jpg'), 0.5);
 image3_n = imresize(imread('./Final/300 neurons.jpg'), 0.5);
@@ -69,17 +78,18 @@ image8_n = imresize(imread('./Final/800 neurons.jpg'), 0.5);
 image9_n = imresize(imread('./Final/900 neurons.jpg'), 0.5);
 image10_n = imresize(imread('./Final/1000 neurons.jpg'), 0.5);
 final_n = imread('./Final/ROC_sweep.jpg');
-figure; imshow(image1_n);
-figure; imshow(image2_n);
-figure; imshow(image3_n);
-figure; imshow(image4_n);
-figure; imshow(image5_n);
-figure; imshow(image6_n);
-figure; imshow(image7_n);
-figure; imshow(image8_n);
-figure; imshow(image9_n);
-figure; imshow(image10_n);
-figure; imshow(final_n);
+
+plot_n = [image1_n image2_n];
+plot2_n = [image3_n image4_n];
+plot3_n = [image5_n image6_n];
+plot4_n = [image7_n image8_n];
+plot5_n = [image9_n image10_n];
+figure; imshow(plot_n); title('100 and 200 hidden neurons ROC curve');
+figure; imshow(plot2_n); title('300 and 400 hidden neurons ROC curve');
+figure; imshow(plot3_n); title('500 and 600 hidden neurons ROC curve');
+figure; imshow(plot4_n); title('700 and 800 hidden neurons ROC curve');
+figure; imshow(plot5_n); title('900 and 1000 hidden neurons ROC curve');
+figure; imshow(final_n); title('Final ROC curve');
 
 %Each of the ROC curves shown below represent the performance of the neural
 %network when being trained with the specified number of hidden neurons.

@@ -19,3 +19,13 @@ How to use Question 2 Part 3 code
 11. When finished, you can now run the code from lines 113 - 116.
 12. Lastly, you can run lines 123 - 177 to sweep iterations 
     to see how accurate our 400 hidden nuerons were. 
+
+
+## Question 2 Part 5 code
+
+1. Open NN_Q5C.m 
+2. Set up Matlab for parrallel pooling. 
+3. Run whole file. 
+4. ROC curves of each sweep will be save automatically to Q5figSaves. 
+5. Results are then displayed with report2.m publish. 
+

@@ -1,5 +1,7 @@
 # Homework 1
 
+Brandon Bench, Nick DeMarco, Matt Washburn, Kristine Nutter
+
 ### Question 1
 
 - After pulling all files from GitHub, move them into the MatLab default directory folder (usually in Documents->MATLAB) this will allow you to run all scripts without having to change any image filepaths. 

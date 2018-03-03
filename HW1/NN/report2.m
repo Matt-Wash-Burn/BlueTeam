@@ -1,3 +1,4 @@
+clc; clear all; close all; 
 %% Delivery report Pt 2 
 % This report contains the awnsers to questions posed in the Delivarble 
 
@@ -111,12 +112,12 @@ figure; imshow(final_n);
 %neural network.
 
 %% Part 5 Sweep ROC
+sweep = [10,10:10:250];
 
-% 
-% for i = 1:21 
-%     formatSpec = "./Q5figSaves/N%dRoc";
-%     savefigpath = sprintf(formatSpec,sweep(i));
-%     openfig(savefigpath);
-%     
-% end
+for i = 1:21 
+    formatSpec = "./Q5figSaves/N%dRoc";
+    savefigpath = sprintf(formatSpec,sweep(i));
+    openfig(savefigpath);
+    
+end
 % close all 

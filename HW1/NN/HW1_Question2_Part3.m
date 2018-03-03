@@ -1,3 +1,5 @@
+%Author: Kristine Nutter
+%Neural Network
 
 clear;
 clc;

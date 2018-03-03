@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Delivery report Pt 2</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-03-02"><meta name="DC.source" content="report2.m"><style type="text/css">
+      --><title>Delivery report Pt 2</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-03-02"><meta name="DC.source" content="report2.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -76,14 +76,104 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <span class="comment">%showed an increased accuraccy at different levels of neurons in the sweep.</span>
 <span class="comment">%This was because the features that were fed to the input had more</span>
 <span class="comment">%information in them for the neural network.</span>
-</pre><h2 id="3">Part 3 Training a machine to understand emtion (The Sweep)</h2><h2 id="4">Part 4 Methods to reduce complexity</h2><h2 id="5">Part 5 Sweep ROC</h2><pre class="codeinput"><span class="keyword">for</span> i = 1:21
-    formatSpec = <span class="string">"./Q5figSaves/N%dRoc"</span>;
-    savefigpath = sprintf(formatSpec,sweep(i));
-    openfig(savefigpath);
+</pre><h2 id="3">Part 3 Training a machine to understand emtion (The Sweep)</h2><pre class="codeinput"><span class="comment">%Let it be known that the whole training dataset was not used in training</span>
+<span class="comment">%this neural network. It was modified to only take 15,000 training samples</span>
+<span class="comment">%and use 9,000 of it to sweep for the number of hidden neurons.</span>
 
-<span class="keyword">end</span>
+image1 = imresize(imread(<span class="string">'./Final/100.jpg'</span>), 0.5);
+image2 = imresize(imread(<span class="string">'./Final/200.jpg'</span>), 0.5);
+image3 = imresize(imread(<span class="string">'./Final/300.jpg'</span>), 0.5);
+image4 = imresize(imread(<span class="string">'./Final/400.jpg'</span>), 0.5);
+image5 = imresize(imread(<span class="string">'./Final/500.jpg'</span>), 0.5);
+image6 = imresize(imread(<span class="string">'./Final/600.jpg'</span>), 0.5);
+image7 = imresize(imread(<span class="string">'./Final/700.jpg'</span>), 0.5);
+image8 = imresize(imread(<span class="string">'./Final/800.jpg'</span>), 0.5);
+image9 = imresize(imread(<span class="string">'./Final/900.jpg'</span>), 0.5);
+image10 = imresize(imread(<span class="string">'./Final/1000.jpg'</span>), 0.5);
+final = imread(<span class="string">'./Final/1000.jpg'</span>);
+plot = [image1 image2 image3 image4 image5; image6 image7 image8 image9 image10];
+figure; imshow(plot); title(<span class="string">'Accuracy through each iteration'</span>);
+figure; imshow(final); title(<span class="string">'Final System Accuracy'</span>);
+
+<span class="comment">%Below shows each sweep iteration from 100 to 1000, incrementing by 100</span>
+<span class="comment">%each time. The fluctuation that we are seeing is due to</span>
+<span class="comment">%the fact that the neural network is being trained with a different number</span>
+<span class="comment">%of neurons each iteration. As can be seen, the accuracy per neurons</span>
+<span class="comment">%decreases until it reaches 400 where it spikes to a 25% accuracy and then</span>
+<span class="comment">%continues to decrease until the final iteration. This means that training</span>
+<span class="comment">%the neural network with 400 neurons would give us the most accurate</span>
+<span class="comment">%outputs. The final system accuracy is shown below also. As you can see,</span>
+<span class="comment">%400 neurons is the most accurate in our sweep.</span>
+
+image_p = imread(<span class="string">'./Final/percentage.jpg'</span>);
+figure; imshow(image_p); title(<span class="string">'Accuracy after percentage change'</span>);
+
+<span class="comment">%We also manipulated the percentage of data going to training and testing</span>
+<span class="comment">%in the sweep iteration for loop in the hopes that we would correct</span>
+<span class="comment">%overfitting more. However, the results yielded less accuracy as seen</span>
+<span class="comment">%below.</span>
+
+image1_n = imresize(imread(<span class="string">'./Final/100 neurons.jpg'</span>), 0.5);
+image2_n = imresize(imread(<span class="string">'./Final/200 neurons.jpg'</span>), 0.5);
+image3_n = imresize(imread(<span class="string">'./Final/300 neurons.jpg'</span>), 0.5);
+image4_n = imresize(imread(<span class="string">'./Final/400 neurons.jpg'</span>), 0.5);
+image5_n = imresize(imread(<span class="string">'./Final/500 neurons.jpg'</span>), 0.5);
+image6_n = imresize(imread(<span class="string">'./Final/600 neurons.jpg'</span>), 0.5);
+image7_n = imresize(imread(<span class="string">'./Final/700 neurons.jpg'</span>), 0.5);
+image8_n = imresize(imread(<span class="string">'./Final/800 neurons.jpg'</span>), 0.5);
+image9_n = imresize(imread(<span class="string">'./Final/900 neurons.jpg'</span>), 0.5);
+image10_n = imresize(imread(<span class="string">'./Final/1000 neurons.jpg'</span>), 0.5);
+final_n = imread(<span class="string">'./Final/ROC_sweep.jpg'</span>);
+figure; imshow(image1_n);
+figure; imshow(image2_n);
+figure; imshow(image3_n);
+figure; imshow(image4_n);
+figure; imshow(image5_n);
+figure; imshow(image6_n);
+figure; imshow(image7_n);
+figure; imshow(image8_n);
+figure; imshow(image9_n);
+figure; imshow(image10_n);
+figure; imshow(final_n);
+
+<span class="comment">%Each of the ROC curves shown below represent the performance of the neural</span>
+<span class="comment">%network when being trained with the specified number of hidden neurons.</span>
+<span class="comment">%Each emotion is represented by a class, as can be seen on each graph:</span>
+<span class="comment">%(7=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)</span>
+<span class="comment">%What we are looking for is the ROC curve with the most classes</span>
+<span class="comment">%located primarily in the upper left hand quadrant of the plot. This will</span>
+<span class="comment">%indiacte that the neural networks performance, with respect to each</span>
+<span class="comment">%class, is good.It can be seen that the plot utilizing 400 hidden neurons</span>
+<span class="comment">%shows the best ROC curve.</span>
+<span class="comment">%The final ROC curve is the overall ROC curve for the neural network.</span>
+</pre><pre class="codeoutput">Warning: Image is too big to fit on screen; displaying at 67% 
+Warning: Image is too big to fit on screen; displaying at 67% 
+</pre><img vspace="5" hspace="5" src="report2_01.png" alt=""> <img vspace="5" hspace="5" src="report2_02.png" alt=""> <img vspace="5" hspace="5" src="report2_03.png" alt=""> <img vspace="5" hspace="5" src="report2_04.png" alt=""> <img vspace="5" hspace="5" src="report2_05.png" alt=""> <img vspace="5" hspace="5" src="report2_06.png" alt=""> <img vspace="5" hspace="5" src="report2_07.png" alt=""> <img vspace="5" hspace="5" src="report2_08.png" alt=""> <img vspace="5" hspace="5" src="report2_09.png" alt=""> <img vspace="5" hspace="5" src="report2_10.png" alt=""> <img vspace="5" hspace="5" src="report2_11.png" alt=""> <img vspace="5" hspace="5" src="report2_12.png" alt=""> <img vspace="5" hspace="5" src="report2_13.png" alt=""> <img vspace="5" hspace="5" src="report2_14.png" alt=""> <h2 id="4">Part 4 Methods to reduce complexity</h2><pre class="codeinput"><span class="comment">%Three different methods that could be used to reduce the complexity of the</span>
+<span class="comment">%system are:</span>
+<span class="comment">%1. wavelet: using wavelet transform would take out a lot of the noise in</span>
+<span class="comment">%the images, allowing the neural network to grab better pixel values from</span>
+<span class="comment">%the data sets.</span>
+<span class="comment">%2. frequency domain: by taking the frequency domain, we could take lower</span>
+<span class="comment">%values of an image and create a more precise data set for training and</span>
+<span class="comment">%testing</span>
+<span class="comment">%3. downsize image: downsizing an image would decrease the size of the</span>
+<span class="comment">%dataset which could decrease the chance of overfitting the training set.</span>
+<span class="comment">%This could reduce the complexity of the training set and increase the</span>
+<span class="comment">%accuracy.</span>
+
+<span class="comment">%All three of the above methods would manipulate the input images and</span>
+<span class="comment">%create a more precise training and testing set for the neural network to</span>
+<span class="comment">%be trained with. This would create a better performing and more accurate</span>
+<span class="comment">%neural network.</span>
+</pre><h2 id="5">Part 5 Sweep ROC</h2><pre class="codeinput"><span class="comment">%</span>
+<span class="comment">% for i = 1:21</span>
+<span class="comment">%     formatSpec = "./Q5figSaves/N%dRoc";</span>
+<span class="comment">%     savefigpath = sprintf(formatSpec,sweep(i));</span>
+<span class="comment">%     openfig(savefigpath);</span>
+<span class="comment">%</span>
+<span class="comment">% end</span>
 <span class="comment">% close all</span>
-</pre><img vspace="5" hspace="5" src="report2_01.png" alt=""> <img vspace="5" hspace="5" src="report2_02.png" alt=""> <img vspace="5" hspace="5" src="report2_03.png" alt=""> <img vspace="5" hspace="5" src="report2_04.png" alt=""> <img vspace="5" hspace="5" src="report2_05.png" alt=""> <img vspace="5" hspace="5" src="report2_06.png" alt=""> <img vspace="5" hspace="5" src="report2_07.png" alt=""> <img vspace="5" hspace="5" src="report2_08.png" alt=""> <img vspace="5" hspace="5" src="report2_09.png" alt=""> <img vspace="5" hspace="5" src="report2_10.png" alt=""> <img vspace="5" hspace="5" src="report2_11.png" alt=""> <img vspace="5" hspace="5" src="report2_12.png" alt=""> <img vspace="5" hspace="5" src="report2_13.png" alt=""> <img vspace="5" hspace="5" src="report2_14.png" alt=""> <img vspace="5" hspace="5" src="report2_15.png" alt=""> <img vspace="5" hspace="5" src="report2_16.png" alt=""> <img vspace="5" hspace="5" src="report2_17.png" alt=""> <img vspace="5" hspace="5" src="report2_18.png" alt=""> <img vspace="5" hspace="5" src="report2_19.png" alt=""> <img vspace="5" hspace="5" src="report2_20.png" alt=""> <img vspace="5" hspace="5" src="report2_21.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Delivery report Pt 2 
 % This report contains the awnsers to questions posed in the Delivarble 
@@ -107,24 +197,105 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 %% Part 3 Training a machine to understand emtion (The Sweep)
 
+%Let it be known that the whole training dataset was not used in training 
+%this neural network. It was modified to only take 15,000 training samples
+%and use 9,000 of it to sweep for the number of hidden neurons. 
+
+image1 = imresize(imread('./Final/100.jpg'), 0.5);
+image2 = imresize(imread('./Final/200.jpg'), 0.5);
+image3 = imresize(imread('./Final/300.jpg'), 0.5);
+image4 = imresize(imread('./Final/400.jpg'), 0.5);
+image5 = imresize(imread('./Final/500.jpg'), 0.5);
+image6 = imresize(imread('./Final/600.jpg'), 0.5);
+image7 = imresize(imread('./Final/700.jpg'), 0.5);
+image8 = imresize(imread('./Final/800.jpg'), 0.5);
+image9 = imresize(imread('./Final/900.jpg'), 0.5);
+image10 = imresize(imread('./Final/1000.jpg'), 0.5);
+final = imread('./Final/1000.jpg');
+plot = [image1 image2 image3 image4 image5; image6 image7 image8 image9 image10];
+figure; imshow(plot); title('Accuracy through each iteration');
+figure; imshow(final); title('Final System Accuracy');
+
+%Below shows each sweep iteration from 100 to 1000, incrementing by 100
+%each time. The fluctuation that we are seeing is due to
+%the fact that the neural network is being trained with a different number
+%of neurons each iteration. As can be seen, the accuracy per neurons
+%decreases until it reaches 400 where it spikes to a 25% accuracy and then
+%continues to decrease until the final iteration. This means that training
+%the neural network with 400 neurons would give us the most accurate
+%outputs. The final system accuracy is shown below also. As you can see,
+%400 neurons is the most accurate in our sweep.
+
+image_p = imread('./Final/percentage.jpg');
+figure; imshow(image_p); title('Accuracy after percentage change');
+
+%We also manipulated the percentage of data going to training and testing
+%in the sweep iteration for loop in the hopes that we would correct
+%overfitting more. However, the results yielded less accuracy as seen
+%below.
+
+image1_n = imresize(imread('./Final/100 neurons.jpg'), 0.5);
+image2_n = imresize(imread('./Final/200 neurons.jpg'), 0.5);
+image3_n = imresize(imread('./Final/300 neurons.jpg'), 0.5);
+image4_n = imresize(imread('./Final/400 neurons.jpg'), 0.5);
+image5_n = imresize(imread('./Final/500 neurons.jpg'), 0.5);
+image6_n = imresize(imread('./Final/600 neurons.jpg'), 0.5);
+image7_n = imresize(imread('./Final/700 neurons.jpg'), 0.5);
+image8_n = imresize(imread('./Final/800 neurons.jpg'), 0.5);
+image9_n = imresize(imread('./Final/900 neurons.jpg'), 0.5);
+image10_n = imresize(imread('./Final/1000 neurons.jpg'), 0.5);
+final_n = imread('./Final/ROC_sweep.jpg');
+figure; imshow(image1_n);
+figure; imshow(image2_n);
+figure; imshow(image3_n);
+figure; imshow(image4_n);
+figure; imshow(image5_n);
+figure; imshow(image6_n);
+figure; imshow(image7_n);
+figure; imshow(image8_n);
+figure; imshow(image9_n);
+figure; imshow(image10_n);
+figure; imshow(final_n);
+
+%Each of the ROC curves shown below represent the performance of the neural
+%network when being trained with the specified number of hidden neurons.
+%Each emotion is represented by a class, as can be seen on each graph: 
+%(7=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)
+%What we are looking for is the ROC curve with the most classes
+%located primarily in the upper left hand quadrant of the plot. This will
+%indiacte that the neural networks performance, with respect to each
+%class, is good.It can be seen that the plot utilizing 400 hidden neurons  
+%shows the best ROC curve.
+%The final ROC curve is the overall ROC curve for the neural network. 
 
 %% Part 4 Methods to reduce complexity 
+%Three different methods that could be used to reduce the complexity of the
+%system are:
+%1. wavelet: using wavelet transform would take out a lot of the noise in
+%the images, allowing the neural network to grab better pixel values from
+%the data sets.
+%2. frequency domain: by taking the frequency domain, we could take lower
+%values of an image and create a more precise data set for training and
+%testing
+%3. downsize image: downsizing an image would decrease the size of the
+%dataset which could decrease the chance of overfitting the training set.
+%This could reduce the complexity of the training set and increase the 
+%accuracy. 
 
-
+%All three of the above methods would manipulate the input images and
+%create a more precise training and testing set for the neural network to
+%be trained with. This would create a better performing and more accurate
+%neural network.
 
 %% Part 5 Sweep ROC
 
-
-for i = 1:21 
-    formatSpec = "./Q5figSaves/N%dRoc";
-    savefigpath = sprintf(formatSpec,sweep(i));
-    openfig(savefigpath);
-    
-end
+% 
+% for i = 1:21 
+%     formatSpec = "./Q5figSaves/N%dRoc";
+%     savefigpath = sprintf(formatSpec,sweep(i));
+%     openfig(savefigpath);
+%     
+% end
 % close all 
-
-
-
-
 ##### SOURCE END #####
 --></body></html>

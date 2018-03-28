@@ -7,15 +7,15 @@ clc;
 close all; % closes all figures
 
 %% Load the dataset
-filename = '../../DontCommit/fer2013.csv'; 
+% filename = '../../DontCommit/fer2013.csv'; 
 
 
-% I already used Matlab GUI to generatre the function
-% (importfileAsColVectors) and uploaded it to the homework folder as well
-[emotion,pixels,Usage] = importfileAsColVectors(filename,2, 35888 );
-
-pixelsChars = char(pixels);
-
+% % I already used Matlab GUI to generatre the function
+% % (importfileAsColVectors) and uploaded it to the homework folder as well
+% [emotion,pixels,Usage] = importfileAsColVectors(filename,2, 35888 );
+% 
+% pixelsChars = char(pixels);
+% 
 
 % pixelsChars = char(pixels);
 
@@ -58,8 +58,8 @@ pixelsChars = char(pixels);
 %% to rerun the .csv reading and parsing code again
 
 % pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
-filename = '../../matFiles/AllPix.mat'; 
-load ../../matFiles/AllPix.mat
+
+load AllPix.mat
 
 %% ToDO by students:Loop over each row to execute
 % restructure each row into 2D Image matrix
@@ -67,12 +67,15 @@ load ../../matFiles/AllPix.mat
 % repeat wavelet analysis as you desire
 % choose and combine the wavelets coefficients that you like
 % concatenate the chosen subset of coefficients into single row format
+wname = 'haar';
 tic
 newTrainingPix = double(pix(:,1:576)); 
+newTrainingPix2 = double(pix(:,1:576)); 
 for q = 1: size(pix, 1)
-    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end)); 
+    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end),wname); 
 end 
 toc
+
 
 figure    ;                                      % plot images
 colormap(gray)                                  % set to grayscale
@@ -86,6 +89,7 @@ end
 %% ToDO by students: after loopoing , save the wavelets data structure as a preprocessed 
 % dataaset so that you can also use it in future without going through 
 % all previous steps again
+save('Part1.mat')
 
 
 %% ToDO by students: Now continue the homework on your own, you should not 

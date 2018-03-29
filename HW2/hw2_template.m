@@ -14,7 +14,6 @@ close all; % closes all figures
 
 pixelsChars = char(pixels);
 
-<<<<<<< HEAD
 % pixelsChars = char(pixels);
 
 % tic
@@ -39,12 +38,12 @@ pixelsChars = char(pixels);
 %% Load the saved .mat files 
 % tic
 % 
-% load emotions.mat
-% load Usage.mat
-% load pix1.mat
-% load pix2.mat
-% load pix3.mat
-% load pxi4.mat
+ load emotions.mat
+ load Usage.mat
+ load pix1.mat
+ load pix2.mat
+ load pix3.mat
+ load pxi4.mat
 % toc
 
 
@@ -56,9 +55,9 @@ pixelsChars = char(pixels);
 %% wavelets calculations, so that if you suffer any crashes, you never need
 %% to rerun the .csv reading and parsing code again
 
-% pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
-filename = '../../matFiles/AllPix.mat'; 
-load ../../matFiles/AllPix.mat
+pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
+% filename = '../../matFiles/AllPix.mat'; 
+% load ../../matFiles/AllPix.mat
 
 %% ToDO by students:Loop over each row to execute
 % restructure each row into 2D Image matrix
@@ -69,7 +68,7 @@ load ../../matFiles/AllPix.mat
 tic
 newTrainingPix = double(pix(:,1:576)); 
 for q = 1: size(pix, 1)
-    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end)); 
+    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'haar');
 end 
 toc
 
@@ -86,6 +85,7 @@ end
 % dataaset so that you can also use it in future without going through 
 % all previous steps again
 
+save('wave.mat', 'newTrainingPix'); 
 
 %% ToDO by students: Now continue the homework on your own, you should not 
 % need more guidance

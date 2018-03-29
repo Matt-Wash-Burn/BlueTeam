@@ -1,4 +1,4 @@
-function stuff = ExtractFeaturesMagic(trainingPixels)
+function stuff = ExtractFeaturesMagic(trainingPixels, wname)
 %ExtractFeaturesMagic Extracts the features of the row vector using the
 %magnatude components of the fft 
 %   Detailed explanation goes here
@@ -15,7 +15,6 @@ fim = reshape(trainingPixels, [48,48])'; % row = 48 x 48  image
 
 %% Applying the filters on input images
 
-wname = 'haar';
 [cA1,cH1,cV1,cD1] = dwt2(fim,wname);
 
 [cA2,cH2,cV2,cD2] = dwt2(cA1,wname);
@@ -50,4 +49,3 @@ stuff = reshape(waveStuff2, [1,576]);
 
 
 end
-

@@ -7,35 +7,34 @@ clc;
 close all; % closes all figures
 
 %% Load the dataset
-% filename = '../../DontCommit/fer2013.csv'; 
+filename = '../../DontCommit/fer2013.csv'; 
 
 
-% % I already used Matlab GUI to generatre the function
-% % (importfileAsColVectors) and uploaded it to the homework folder as well
-% [emotion,pixels,Usage] = importfileAsColVectors(filename,2, 35888 );
-% 
-% pixelsChars = char(pixels);
-% 
+% I already used Matlab GUI to generatre the function
+% (importfileAsColVectors) and uploaded it to the homework folder as well
+[emotion,pixels,Usage] = importfileAsColVectors(filename,2, 35888 );
 
-% pixelsChars = char(pixels);
+pixelsChars = char(pixels);
 
-% tic
-% pixelsData_chunk1 = str2num(pixelsChars(1:10000,:));
-% toc
+
+
 
 %% ToDO by students: repeat partitionin and processing until you extract all data pixels
+tic
+pixelsData_chunk1 = str2num(pixelsChars(1:10000,:));
+toc
 
-% tic
-% pixelsData_chunk2 = str2num(pixelsChars(10001:20000,:));
-% toc
-% 
-% tic
-% pixelsData_chunk3 = str2num(pixelsChars(20001:30000,:));
-% toc
-% 
-% tic
-% pixelsData_chunk4 = str2num(pixelsChars(30001:35887,:));
-% toc
+tic
+pixelsData_chunk2 = str2num(pixelsChars(10001:20000,:));
+toc
+
+tic
+pixelsData_chunk3 = str2num(pixelsChars(20001:30000,:));
+toc
+
+tic
+pixelsData_chunk4 = str2num(pixelsChars(30001:35887,:));
+toc
 
 
 %% Load the saved .mat files 
@@ -57,9 +56,9 @@ close all; % closes all figures
 %% wavelets calculations, so that if you suffer any crashes, you never need
 %% to rerun the .csv reading and parsing code again
 
-% pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
+pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
 
-load AllPix.mat
+% load AllPix.mat
 
 %% ToDO by students:Loop over each row to execute
 % restructure each row into 2D Image matrix

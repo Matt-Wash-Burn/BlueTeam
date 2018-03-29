@@ -14,21 +14,14 @@ toc
 
 
 
-%% Create a new data set with the magic function 
-tic %begin timeing for fun 
-newTrainingPix = double(trainingPixels(:,1:257)); 
-for q = 1: size(trainingPixels, 1)
-    newTrainingPix(q,2:end) = ExtractFeaturesMagic(trainingPixels(q,2:end)); 
-end 
-toc 
 %% Reshape the data to Visualize example for the digits sample
 figure    ;                                      % plot images
 colormap(gray)                                  % set to grayscale
 for i = 1:25                                    % preview first 25 samples
     subplot(5,5,i)                              % plot them in 6 x 6 grid
-    digit = reshape(newTrainingPix(i, 2:end), [16,16])';    % row = 28 x 28 image
+    digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
     imagesc(digit)                              % show the image
-    title(num2str(newTrainingPix(i, 1)))                    % show the label
+    title(num2str(emotion(i, 1)))                    % show the label
 end
 
 
@@ -38,8 +31,8 @@ end
 
 n = size(newTrainingPix, 1);                    % number of samples in the dataset
 targets  = newTrainingPix(:,1);                 % 1st column is |label|
-targets(targets == 0) = 7;         % use '10' to present '0'
-targetsd = dummyvar(double(targets));       % convert label into a dummy variable
+targets(targets == 0) = 7;         % use '7' to present '0'
+targetsd = dummyvar(emotion+1);       % convert label into a dummy variable
 
 % No need for the first column in the (trainingPixels) set any longer
 inputs = newTrainingPix(:,2:end);               % the rest of columns are predictors

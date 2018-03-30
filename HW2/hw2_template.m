@@ -65,10 +65,12 @@ pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_ch
 % repeat wavelet analysis as you desire
 % choose and combine the wavelets coefficients that you like
 % concatenate the chosen subset of coefficients into single row format
+frameSize = 29;
+
 tic
-newTrainingPix = double(pix(:,1:576)); 
+newTrainingPix = double(pix(:,1:(frameSize*frameSize))); 
 for q = 1: size(pix, 1)
-    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'haar');
+    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'coif4', frameSize);
 end 
 toc
 
@@ -76,7 +78,7 @@ figure    ;                                      % plot images
 colormap(gray)                                  % set to grayscale
 for i = 1:25                                    % preview first 25 samples
     subplot(5,5,i)                              % plot them in 6 x 6 grid
-    digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
+    digit = reshape(newTrainingPix(i, 1:end), [frameSize,frameSize])';    % row = 28 x 28 image
     imagesc(digit)                              % show the image
     title(num2str(newTrainingPix(i, 1)))                    % show the label
 end
@@ -85,7 +87,7 @@ end
 % dataaset so that you can also use it in future without going through 
 % all previous steps again
 
-save('wave.mat', 'newTrainingPix'); 
+save('waveCoif4.mat', 'newTrainingPix'); 
 
 %% ToDO by students: Now continue the homework on your own, you should not 
 % need more guidance

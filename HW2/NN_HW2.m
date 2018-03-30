@@ -16,7 +16,7 @@ disp('loading data ...............');
 
 % The training set is  42000 samples
 % testing set is 28,000  samples
-load('wave.mat', 'newTrainingPix');
+load('waveCoif4.mat', 'newTrainingPix');
 load('emotions.mat');
 load('Usage.mat');
 tr = newTrainingPix;
@@ -94,10 +94,10 @@ Ytestd = targetsd(:, test(patitionObject));      % 1/3 of the dummy variable for
 % for each possible label. You simply choose the most probable label as your prediction 
 %     and then compare it to the actual label. You should see 95% categorization accuracy.
 
-Ypred = myNNfun(Xtest);             % predicts probability for each label
-Ypred(:, 1:5)                       % display the first 5 columns
-[~, Ypred] = max(Ypred);            % find the indices of max probabilities
-sum(Ytest == Ypred) / length(Ytest) % compare the predicted vs. actual
+%Ypred = HaarNeuralNetworkFunction(Xtest);             % predicts probability for each label
+% Ypred(:, 1:5)                       % display the first 5 columns
+% [~, Ypred] = max(Ypred);            % find the indices of max probabilities
+% sum(Ytest == Ypred) / length(Ytest); % compare the predicted vs. actual
 
 
 % You probably noticed that the artificial neural network model generated from 

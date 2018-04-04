@@ -7,6 +7,8 @@ clc;
 close all; % closes all figures
 
 %% Load the dataset
+
+% Find the feature file
 filename = '../../DontCommit/fer2013.csv'; 
 
 
@@ -66,23 +68,34 @@ pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_ch
 % repeat wavelet analysis as you desire
 % choose and combine the wavelets coefficients that you like
 % concatenate the chosen subset of coefficients into single row format
-wname = 'haar';
-tic
-newTrainingPix = double(pix(:,1:576)); 
-newTrainingPix2 = double(pix(:,1:576)); 
-for q = 1: size(pix, 1)
-    newTrainingPix(q,1:end) = ExtractFeaturesMagic(pix(q,1:end),wname); 
-end 
-toc
+
+frameSize = [24 24];
+ tic
+ newTrainingPixCoif = double(pix(:,1:(frameSize(1)*frameSize(1))));
+ newTrainingPixHaar = double(pix(:,1:(frameSize(2)*frameSize(2))));
+ for q = 1: size(pix, 1)
+    newTrainingPixCoif(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'coif4', frameSize(1));
+    newTrainingPixHaar(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'haar', frameSize(2));
+ end 
+ toc
 
 
 figure    ;                                      % plot images
 colormap(gray)                                  % set to grayscale
 for i = 1:25                                    % preview first 25 samples
     subplot(5,5,i)                              % plot them in 6 x 6 grid
-    digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
+    digit = reshape(newTrainingPixCoif(i, 1:end), [24,24])';    % row = 28 x 28 image
     imagesc(digit)                              % show the image
-    title(num2str(newTrainingPix(i, 1)))                    % show the label
+    title(num2str(emotion(i)))                    % show the label
+end
+
+figure    ;                                      % plot images
+colormap(gray)                                  % set to grayscale
+for i = 1:25                                    % preview first 25 samples
+    subplot(5,5,i)                              % plot them in 6 x 6 grid
+    digit = reshape(newTrainingPixHaar(i, 1:end), [24,24])';    % row = 28 x 28 image
+    imagesc(digit)                              % show the image
+    title(num2str(emotion(i)))                    % show the label
 end
 
 %% ToDO by students: after loopoing , save the wavelets data structure as a preprocessed 

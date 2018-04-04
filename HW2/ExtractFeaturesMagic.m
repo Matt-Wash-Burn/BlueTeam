@@ -1,4 +1,4 @@
-function stuff = ExtractFeaturesMagic(trainingPixels,wname)
+function stuff = ExtractFeaturesMagic(trainingPixels, wname, frameSize)
 %ExtractFeaturesMagic Extracts the features of the row vector using the
 %magnatude components of the fft 
 %   Detailed explanation goes here
@@ -15,13 +15,16 @@ fim = reshape(trainingPixels, [48,48])'; % row = 48 x 48  image
 
 %% Applying the filters on input images
 
+[cA1,cH1,cV1,cD1] = dwt2(fim,'coif4');
 
-[cA1,cH1,cV1,cD1] = dwt2(fim,wname);
-
-[cA2,cH2,cV2,cD2] = dwt2(cA1,wname);
+[cA2,cH2,cV2,cD2] = dwt2(cA1,'coif4');
 
 waveStuff1 = [cA1 cH1 ; cV1 cD1]; 
 waveStuff2 = [cA2 cH2 ; cV2 cD2]; 
+
+
+
+
 
 % figure; imagesc(waveStuff1); 
 % figure; imagesc(waveStuff2); 
@@ -45,9 +48,13 @@ waveStuff2 = [cA2 cH2 ; cV2 cD2];
 % 
 % %% Reshape to return to NN 
 % 
+waveStuff2 = imresize(waveStuff2, [24 24]);
 
-stuff = reshape(waveStuff2, [1,576]); 
+%   var = size(waveStuff2); 
+% %  
+% %  frameSize = var(1); 
+
+stuff = reshape(waveStuff2, [1,(frameSize*frameSize)]); 
 
 
 end
-

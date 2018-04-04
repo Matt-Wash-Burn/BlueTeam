@@ -1,19 +1,15 @@
-% % Gathered and edited by  Abdallah S. Abdallah aua639@psu.edu
-% % based on the tutorial at https://blogs.mathworks.com/loren/2015/08/04/artificial-neural-networks-for-beginners/#1168dbb4-1365-4b63-8326-140263e2072f
-% 
-% % 
-clear;
-clc;
-close all; % closes all figures
-%% Load previously saved data 
-tic
-
-load Part1.mat
-
-toc
+function [outputArg1] = trainNetworks(newTrainingPix,emotion,indexn)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
 
 
-
+%% Create a new data set with the magic function 
+% tic %begin timeing for fun 
+% newTrainingPix = double(trainingPixels(:,1:257)); 
+% for q = 1: size(trainingPixels, 1)
+%     newTrainingPix(q,2:end) = ExtractFeaturesMagic(trainingPixels(q,2:end)); 
+% end 
+% toc 
 %% Reshape the data to Visualize example for the digits sample
 figure    ;                                      % plot images
 colormap(gray)                                  % set to grayscale
@@ -21,7 +17,7 @@ for i = 1:25                                    % preview first 25 samples
     subplot(5,5,i)                              % plot them in 6 x 6 grid
     digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
     imagesc(digit)                              % show the image
-    title(num2str(emotion(i, 1)))                    % show the label
+    title(num2str(emotion(i)))                    % show the label
 end
 
 
@@ -82,8 +78,8 @@ for i = 1:length(sweep)
     % Ploting the ROC
     plotroc(t,simpleclusterOutputs,sprintf('%d Neurons' ,sweep(i)));
     
-    formatSpec = "./figSaves/N%dRoc";
-    savefigpath = sprintf(formatSpec,sweep(i));
+    formatSpec = "./figSaves/%dN%dRoc";
+    savefigpath = sprintf(formatSpec,indexn,sweep(i));
     savefig(savefigpath);
     
     
@@ -102,8 +98,13 @@ plot(sweep, scores, '.-')
 xlabel('number of hidden neurons')
 ylabel('categorization accuracy')
 title('Number of hidden neurons vs. accuracy')
+
+formatSpec = "./figSaves/%d_SweepResult";
+savefigpath = sprintf(formatSpec,indexn);
+savefig(savefigpath);
 % Let's now plot how the categorization accuracy changes versus number of 
 % neurons in the hidden layer.
 
 
+end
 

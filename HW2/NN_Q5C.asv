@@ -1,0 +1,74 @@
+% % Gathered and edited by  Abdallah S. Abdallah aua639@psu.edu
+% % based on the tutorial at https://blogs.mathworks.com/loren/2015/08/04/artificial-neural-networks-for-beginners/#1168dbb4-1365-4b63-8326-140263e2072f
+% 
+% % 
+clear;
+clc;
+close all; % closes all figures
+% % 
+% 
+% 
+% filename = '../../../DontCommit/fer2013.csv'; 
+% 
+% 
+% 
+% disp('loading data ...............');
+% 
+% % The training set is  28709 samples
+% % testing set is  7178  samples
+% fer = fopen(filename, 'r');                 % read fer2013.csv
+% trainingPixels = 28709;
+% testSize = 7178;
+% fullSize = trainingPixels + testSize;
+% 
+% %get headers and data from dataset
+% headers = textscan(fer, '%s %s %s', 1, 'delimiter', ', ');
+% data = textscan(fer, '%d %s %s', fullSize, 'delimiter', ','); 
+% 
+% %% all data for training
+% 
+% pixels = [];
+% emotions =[];
+% trainingPixels = [];
+% testPixels = [];
+% testEmotions =[];
+% testingPixels = [];
+% 
+% %parse out training values for emotions and pixels
+% for i=1:trainingPixels
+%     pixels = [pixels; data{1,2}(i)];
+%     emotions = [emotions; data{1,1}(i)];
+%     stringPix = char(pixels{i,1});
+%     parsePix = str2double(strsplit(stringPix));
+%     trainingPixels = [trainingPixels; uint8(emotions(i,1)), uint8(parsePix)];
+% end
+% 
+% 
+% 
+% %% all data for testing
+% 
+% %parse out testing data
+% for j=trainingPixels+1:fullSize
+%     testPixels = [testPixels; data{1,2}(j)];
+%     testEmotions = [testEmotions; data{1,1}(j)];
+% end
+% %parse out each testing pixel we need
+% for k=1:testSize
+%     stringTestPix = char(testPixels{k,1});
+%     parseTestPix = str2double(strsplit(stringTestPix));
+%     testingPixels = [testingPixels; uint8(testEmotions(k,1)), uint8(parseTestPix)];
+% end
+% 
+% 
+% 
+% disp('Loaded ....');
+
+% trainingPixels = fer2013; 
+tic
+load Part1.mat
+% load TrainingPixels.mat
+toc 
+
+trainNetworks(trainingPixCoif,1)
+trainNetworks(trainingPixCoif,2)
+

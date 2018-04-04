@@ -60,4 +60,23 @@ for i = 1:21
     
 end
 
+%% Why Haar is more accurate than Coif4
+% When performing our analysis, we came to the conclusion that our Haar
+% wavelet was more accurate compared to the Coif wavelet that we used. 
+% From our research, we found that Haar is the simplest family of the
+% wavelets.  Haar wavelets are memory efficient and they do not have
+% overlapping windows, unlike the coiflet family of wavelets.  Those
+% wavelets have windows that overlap a lot more.  Haar wavelets only 
+% reflect changes between adjacent pixel pairs as well.  Coiflets,
+% including the Coif4 wavelet, have more computational overhead.  This
+% overhead often leads to smoother wavelets.  Coiflets are pretty similiar
+% to Haar wavelets computationally, but Coiflets also use the mirroring
+% technique as well.  Because our training images were taken in a controlled
+% environent and sudden changes could be detected between them, the Haar
+% ended up peforming better in terms of accuracy.  That is what the Haar
+% wavelet was designed for.  Coiflets are much better for when an image
+% needs to be processed using smoothing and denoising techniques, which was
+% not something that was necessarily needed for our training set.
+
+
 % close all 

@@ -1,4 +1,4 @@
-function stuff = ExtractFeaturesMagic(trainingPixels, wname, frameSize)
+function stuff = ExtractFeaturesMagic(trainingPixels, wname)
 %ExtractFeaturesMagic Extracts the features of the row vector using the
 %magnatude components of the fft 
 %   Detailed explanation goes here
@@ -16,45 +16,32 @@ fim = reshape(trainingPixels, [48,48])'; % row = 48 x 48  image
 %% Applying the filters on input images
 
 [cA1,cH1,cV1,cD1] = dwt2(fim,wname);
-
+% W1 = [cA1,cH1,cV1,cD1]; 
 [cA2,cH2,cV2,cD2] = dwt2(cA1,wname);
+% W2 = [cA2,cH2,cV2,cD2]; 
+waveStuff1 = [cA1 cH1 ; cV1 cD1];
+waveStuff2 = [cA2 cH2 ; cV2 cD2];
 
-waveStuff1 = [cA1 cH1 ; cV1 cD1]; 
-waveStuff2 = [cA2 cH2 ; cV2 cD2]; 
+% FV = [cA1 ,cH2,cV2,cD2] ;
 
 
-
-
+stuff = reshape(cA1, [1,size(cA1,1)^2]);
+stuff = [stuff reshape(cH2, [1,size(cH2,1)^2])];
+stuff = [stuff reshape(cV2, [1,size(cV2,1)^2])];
+stuff = [stuff reshape(cD2, [1,size(cD2,1)^2])];
 
 % figure; imagesc(waveStuff1); 
 % figure; imagesc(waveStuff2); 
-% 
-% 
-% tic
-% toc
 
-% 
-% %% Calculating plotting limits
-% I_Mag_min = min(min(abs(restoredP1)));
-% I_Mag_max = max(max(abs(restoredP1)));
-% 
-% % figure; 
-% % imshow(abs(re),[I_Mag_min I_Mag_max ]);
-% 
-% 
-% %% Extract lower frequencies by just cutting to 16 x 16 
-% newRe = re(5:20,5:20); 
-% % figure; imagesc(newRe); 
-% 
 % %% Reshape to return to NN 
-% 
-waveStuff2 = imresize(waveStuff2, [24 24]);
 
-%   var = size(waveStuff2); 
+% waveStuff2 = imresize(waveStuff2, [24 24]);
+% 
+% %   var = size(waveStuff2); 
 % %  
 % %  frameSize = var(1); 
 
-stuff = reshape(waveStuff2, [1,(frameSize*frameSize)]); 
+
 
 
 end

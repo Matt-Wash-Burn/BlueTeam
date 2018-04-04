@@ -13,7 +13,7 @@ load Part1.mat
 % load TrainingPixels.mat
 toc 
 disp("loaded")
-time1 =tic
+time1 =tic;
 trainNetworks(newTrainingPixCoif,emotion,1)
 trainNetworks(newTrainingPixHaar,emotion,2)
 toc(time1)

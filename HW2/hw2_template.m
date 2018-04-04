@@ -61,7 +61,7 @@ toc
 pix = [pixelsData_chunk1 ; pixelsData_chunk2 ; pixelsData_chunk3 ; pixelsData_chunk4]; 
 
 % load AllPix.mat
-
+% load emotions.mat
 %% ToDO by students:Loop over each row to execute
 % restructure each row into 2D Image matrix
 % apply wavelet analysis to level 1

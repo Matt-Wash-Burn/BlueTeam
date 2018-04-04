@@ -106,5 +106,13 @@ savefig(savefigpath);
 % neurons in the hidden layer.
 
 
+plotconfusion(t,simpleclusterOutputs);
+formatSpec = "./figSaves/ConfusionMatrix_%d";
+savefigpath = sprintf(formatSpec,indexn);
+savefig(savefigpath);
+
+
+save(sprintf('Part2_Wave_%d.mat',indexn))
+
 end
 

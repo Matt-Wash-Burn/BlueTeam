@@ -11,14 +11,14 @@ function [outputArg1] = trainNetworks(newTrainingPix,emotion,indexn)
 % end 
 % toc 
 %% Reshape the data to Visualize example for the digits sample
-figure    ;                                      % plot images
-colormap(gray)                                  % set to grayscale
-for i = 1:25                                    % preview first 25 samples
-    subplot(5,5,i)                              % plot them in 6 x 6 grid
-    digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
-    imagesc(digit)                              % show the image
-    title(num2str(emotion(i)))                    % show the label
-end
+% figure    ;                                      % plot images
+% colormap(gray)                                  % set to grayscale
+% for i = 1:25                                    % preview first 25 samples
+%     subplot(5,5,i)                              % plot them in 6 x 6 grid
+%     digit = reshape(newTrainingPix(i, 1:end), [24,24])';    % row = 28 x 28 image
+%     imagesc(digit)                              % show the image
+%     title(num2str(emotion(i)))                    % show the label
+% end
 
 
 %% The dataset stores samples in rows rather than in columns, so you need to
@@ -55,7 +55,7 @@ Ytestd = targetsd(:, test(patitionObject));      % 1/3 of the dummy variable for
 %% Sweeo Code Block
 %% Sweeping to choose different sizes for the hidden layer
 
-sweep = [10,10:10:250];                 % parameter values to test
+sweep =  [20,20:20:260];                 % parameter values to test
 scores = zeros(length(sweep), 1);       % pre-allocation
 % we will use models to save the several neural network result from this
 % sweep and run loop
@@ -69,9 +69,9 @@ for i = 1:length(sweep)
     tic
     hiddenLayerSize = sweep(i);         % number of hidden layer neurons
     net = patternnet(hiddenLayerSize);  % pattern recognition network
-    net.divideParam.trainRatio = 70/100;% 70% of data for training
-    net.divideParam.valRatio = 15/100;  % 15% of data for validation
-    net.divideParam.testratio = 15/100; % 15% of data for testing
+    net.divideParam.trainRatio = 50/100;% 70% of data for training
+    net.divideParam.valRatio = 25/100;  % 15% of data for validation
+    net.divideParam.testratio = 25/100; % 15% of data for testing
     net = train(net, x, t,'useParallel','yes');  % ,'useGPU','yes','showResources','yes'train the network
     simpleclusterOutputs = sim(net,x);
     

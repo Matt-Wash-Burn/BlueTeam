@@ -23,7 +23,7 @@ img = readimage(imds,1);
 imshow(img)
 
 
-sweep = [10,10:10:250];
+sweep = [20,20:20:260]; 
 %% Coif
 
 % Below is the accuracy of the sweep. 
@@ -33,14 +33,15 @@ sweep = [10,10:10:250];
  openfig("../figSaves/ConfusionMatrix_1");
  
 %% Coif: All ROC 
-for i = 1:21 
+
+for i = 1:size(sweep,2) 
     formatSpec = "../figSaves/%dN%dRoc";
     savefigpath = sprintf(formatSpec,1,sweep(i));
     openfig(savefigpath);
     
 end
 
-sweep = [10,10:10:250];
+
 
 %% Harr
 
@@ -53,7 +54,7 @@ openfig("../figSaves/2_SweepResult");
  
 
 %% Harr: All ROC 
-for i = 1:21 
+for i = 1:size(sweep,2) 
     formatSpec = "../figSaves/%dN%dRoc";
     savefigpath = sprintf(formatSpec,2,sweep(i));
     openfig(savefigpath);

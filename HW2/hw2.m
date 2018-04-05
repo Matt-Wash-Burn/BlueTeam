@@ -5,7 +5,7 @@
 clear;
 clc;
 close all; % closes all figures
-testing =1;
+testing =0;
 %% Load the dataset
 if testing == 1
     tic
@@ -80,40 +80,39 @@ t1 =tic;
 % newTrainingPixCoif = double(pix(:,1:(frameSize(1)*frameSize(1))));
 % newTrainingPixHaar = double(pix(:,1:(frameSize(2)*frameSize(2))));
 for q = 1: size(pix, 1)
-%     t2 = tic; 
-    if testing == 0
-        newTrainingPixCoif(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'coif4');
-    end
+
+%     if testing == 0
+%         newTrainingPixCoif(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'coif4');
+%     end
     
     
     if q == 1
         var1 = ExtractFeaturesMagic(pix(q,1:end), 'haar');
+        var2 = ExtractFeaturesMagic(pix(q,1:end), 'coif4');
         newTrainingPixHaar = double(pix(:,1:(size(var1,2))));
+        newTrainingPixCoif = double(pix(:,1:(size(var2,2))));
         newTrainingPixHaar(q,1:end) = var1;
+        newTrainingPixCoif(q,1:end) = var2;
     else
         newTrainingPixHaar(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'haar');
+        newTrainingPixCoif(q,1:end) = ExtractFeaturesMagic(pix(q,1:end), 'coif4');
     end
-%     time = toc(t2);
-%     if mod(q,1000) ==1
-%         timeLeft =time*(size(pix, 1) -q); 
-%         sprintf(" Time Left : %d:%d" , round(timeLeft /60), round(mod(timeLeft,60)) )
-%         
-%     end
+
 end
 toc(t1)
 
-if testing == 0
-    
-    figure    ;                                      % plot images
-    colormap(gray)                                  % set to grayscale
-    for i = 1:25                                    % preview first 25 samples
-        subplot(5,5,i)                              % plot them in 6 x 6 grid
-        digit = reshape(newTrainingPixCoif(i, 1:end), [sqrt(size(var1,2)),sqrt(size(var1,2))])';    % row = 28 x 28 image
-        imagesc(digit)                              % show the image
-        title(num2str(emotion(i)))                    % show the label
-    end
-    
-end
+% if testing == 0
+%     
+%     figure    ;                                      % plot images
+%     colormap(gray)                                  % set to grayscale
+%     for i = 1:25                                    % preview first 25 samples
+%         subplot(5,5,i)                              % plot them in 6 x 6 grid
+%         digit = reshape(newTrainingPixCoif(i, 1:end), [sqrt(size(var1,2)),sqrt(size(var1,2))])';    % row = 28 x 28 image
+%         imagesc(digit)                              % show the image
+%         title(num2str(emotion(i)))                    % show the label
+%     end
+%     
+% end
 
 % figure    ;                                      % plot images
 % colormap(gray)                                  % set to grayscale

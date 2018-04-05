@@ -1,2 +1,5 @@
 
 *.png
+*.fig
+*.mat
+*.asv

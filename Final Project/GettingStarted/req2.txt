@@ -1,1 +1,6 @@
-pip3 install tensorflow
+tensorflow
+Cython
+pillow
+lxml
+jupyter
+matplotlib

@@ -1,6 +1,7 @@
+jupyter
+matplotlib
 tensorflow
 Cython
 pillow
 lxml
-jupyter
-matplotlib
+

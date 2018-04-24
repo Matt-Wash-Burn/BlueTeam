@@ -136,16 +136,32 @@ end
 %I = imread('2.jpg');
 % I = cars;
 load('testCellSmall.mat')
-for J = 1: length(testCellSmall)
-    I = testCellSmall{J};
+testImage = imread('test.jpg');
+%for J = 1: length(testCellSmall)
+for J = 1: 1
+    I = testCellSmall{J+1};
     %imshow(I);
     % Run the detector.
     [bboxes,scores] = detect(detector,I);
-
+    newScore = string(scores);
+    for P = 1 : length(scores)
+        newScore(P) = "Car: " + num2str(round(scores(P)*100, 2))+ "%";
+    end
     % Annotate detections in the image.
-    I = insertObjectAnnotation(I,'rectangle',bboxes,scores);
-    figure;
-    imshow(I);
+    I = insertObjectAnnotation(I,'rectangle',bboxes,cellstr(newScore), 'FontSize', 20);
+    
+    [m,n] = size(I);
+    n = n/3;
+    testImageRe = imresize(testImage, [m n]);
+
+final = [I; testImageRe];
+figure;
+imshow(final);
+%% OR
+% figure;
+% imshow(I);
+% figure;
+% imshow(testImageRe);
 end
 %% Evaluate
 % if doTrainingAndEval

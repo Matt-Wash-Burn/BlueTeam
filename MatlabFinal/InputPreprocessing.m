@@ -5,6 +5,7 @@ close all;
 MAXSIZE  = 75; %CHANGE THIS FOR FILE NUMBERS
 %postProcessedCarImages = cell(45576);
 testCellSmall = cell(MAXSIZE, 1);
+origImageCell = cell(MAXSIZE, 1);
 area = 1;
 tic
 for k = 1:MAXSIZE
@@ -15,6 +16,7 @@ for k = 1:MAXSIZE
 	photoFile = sprintf('Dataset/%d.jpg', k*w);
 	if exist(photoFile, 'file')
 		image = imread(photoFile);
+        origImageCell{area, 1} = image;
         
         %% Do wavelet LL
         [cA1,cH1,cV1,cD1] = dwt2(image,'coif4');
@@ -36,6 +38,7 @@ for k = 1:MAXSIZE
     end
 end
  save('testCellSmall', 'testCellSmall', '-v7.3');
+ save('origImageCell', 'origImageCell', '-v7.3');
  toc
  %'-v7.3'
 %%Save as mat file, and load in that way

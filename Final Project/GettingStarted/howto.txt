@@ -7,6 +7,6 @@ sudo apt-get install $(cat req1.txt)
 
 
 ## Run the following in terminal 
-sudo pip3 install -r req2.txt
+sudo pip install -r req2.txt
 
 
